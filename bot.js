@@ -49,8 +49,8 @@ if (tweet_text != '') {
 	var twitter = new Twitter.RestClient(
 		twitterconfig.consumer_key,
 		twitterconfig.consumer_secret,
-		twitterconfig.access_token,
-		twitterconfig.access_token_secret
+		state.access_token,
+		state.access_token_secret
 	);
 
 	twitter.statusesUpdate({

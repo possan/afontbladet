@@ -42,8 +42,6 @@ if (biggest_fontsize != state.last_fontsize || biggest_text != state.last_text) 
 if (tweet_text != '') {
 	//
 	console.log('Send tweet: ' + tweet_text);
-	state.last_tweet = tweet_text;
-	state.last_tweet_time = Date().toString();
 
 	var twitterconfig = JSON.parse(fs.readFileSync('twitterconfig.json', 'UTF-8'));
     var Twitter = require('node-twitter');
@@ -60,13 +58,28 @@ if (tweet_text != '') {
 	}, function (err, data) {
 		if (err) {
 			console.error(err);
+
+			state.last_error = err.toString();
+			state.last_error_time = Date().toString();
+
+			state.last_update = Date().toString();
+
+			fs.writeFileSync('state.json', JSON.stringify(state, 2, null), 'UTF-8');
+
 		} else {
 			console.log(data);
+
+			// save state
+			state.last_fontsize = biggest_fontsize;
+			state.last_text = biggest_text;
+
+			state.last_tweet = tweet_text;
+			state.last_tweet_time = Date().toString();
+
+			state.last_update = Date().toString();
+
+			fs.writeFileSync('state.json', JSON.stringify(state, 2, null), 'UTF-8');
+
 		}
 	});
 }
-
-// save state
-state.last_fontsize = biggest_fontsize;
-state.last_text = biggest_text;
-fs.writeFileSync('state.json', JSON.stringify(state, 2, null), 'UTF-8');

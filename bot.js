@@ -28,12 +28,14 @@ var tweet_text = '';
 if (biggest_fontsize != state.last_fontsize || biggest_text != state.last_text) {
 	console.log('Biggest headline changed text or font size');
 
-	if (biggest_fontsize > state.last_fontsize) {
-		tweet_text = 'Ökar till '+biggest_fontsize+'px med "' + biggest_text + '"';
+	if (biggest_fontsize >= (state.last_fontsize + 10)) {
+		tweet_text = 'Fontchock, hela '+biggest_fontsize+'px! ' + biggest_text;
+	} else if (biggest_fontsize > state.last_fontsize) {
+		tweet_text = 'Ökning till '+biggest_fontsize+'px: ' + biggest_text;
 	} else if (biggest_fontsize < state.last_fontsize) {
-		tweet_text = 'Tillbaka på '+biggest_fontsize+'px med "' + biggest_text + '"';
+		tweet_text = 'Tillbaka på '+biggest_fontsize+'px: ' + biggest_text;
 	} else if (biggest_text != state.last_text) {
-		tweet_text = 'Text med '+biggest_fontsize+'px ändrad till "' + biggest_text + '"';
+		tweet_text = 'Rubrik på '+biggest_fontsize+'px ändrad: ' + biggest_text;
 	}
 }
 
@@ -57,9 +59,9 @@ if (tweet_text != '') {
 		status: tweet_text
 	}, function (err, data) {
 		if (err) {
-		console.error(err);
+			console.error(err);
 		} else {
-		console.log(data);
+			console.log(data);
 		}
 	});
 }

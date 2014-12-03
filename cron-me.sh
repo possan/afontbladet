@@ -15,7 +15,6 @@ if [ -e "text.json" ]; then
 
 	# run bot script and tweet if change
 	node bot.js
-
 fi
 
 # döne.

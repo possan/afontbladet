@@ -80,7 +80,7 @@ if (tweet_text != '') {
 				state.last_fontsize = biggest_fontsize;
 				state.last_text = biggest_text;
 
-                                state.last_error = ''; 
+				state.last_error = ''; 
 
 				state.last_tweet = tweet_text;
 				state.last_tweet_time = Date().toString();
@@ -96,6 +96,11 @@ if (tweet_text != '') {
 	);
 
 } else {
+
+	state.last_update = Date().toString();
+
+	fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
+
 
 	process.exit(0);
 

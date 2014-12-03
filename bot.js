@@ -64,7 +64,7 @@ if (tweet_text != '') {
 
 			state.last_update = Date().toString();
 
-			fs.writeFileSync('state.json', JSON.stringify(state, 2, null), 'UTF-8');
+			fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
 
 			process.exit(1);
 
@@ -80,7 +80,7 @@ if (tweet_text != '') {
 
 			state.last_update = Date().toString();
 
-			fs.writeFileSync('state.json', JSON.stringify(state, 2, null), 'UTF-8');
+			fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
 
 			process.exit(0);
 

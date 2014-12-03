@@ -80,6 +80,8 @@ if (tweet_text != '') {
 				state.last_fontsize = biggest_fontsize;
 				state.last_text = biggest_text;
 
+                                state.last_error = ''; 
+
 				state.last_tweet = tweet_text;
 				state.last_tweet_time = Date().toString();
 

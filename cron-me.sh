@@ -15,6 +15,14 @@ if [ -e "text.json" ]; then
 
 	# run bot script and tweet if change
 	node bot.js
+	if [ $? -ne 0 ]; then
+	    echo "bot failed"
+
+		echo "Subject: Afontbladet rip failure" > mail.txt
+		echo "" >> mail.txt
+		cat state.json >>mail.txt
+		cat mail.txt | sendmail possan+afontbladet@possan.se
+	fi
 fi
 
 # döne.

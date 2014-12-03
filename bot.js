@@ -66,6 +66,8 @@ if (tweet_text != '') {
 
 			fs.writeFileSync('state.json', JSON.stringify(state, 2, null), 'UTF-8');
 
+			process.exit(1);
+
 		} else {
 			console.log(data);
 
@@ -80,6 +82,13 @@ if (tweet_text != '') {
 
 			fs.writeFileSync('state.json', JSON.stringify(state, 2, null), 'UTF-8');
 
+			process.exit(0);
+
 		}
 	});
+
+} else {
+
+	process.exit(0);
+
 }

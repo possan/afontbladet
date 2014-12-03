@@ -44,48 +44,54 @@ if (tweet_text != '') {
 	console.log('Send tweet: ' + tweet_text);
 
 	var twitterconfig = JSON.parse(fs.readFileSync('twitterconfig.json', 'UTF-8'));
-    var Twitter = require('node-twitter');
+	var twitterAPI = require('node-twitter-api');
+	var state = JSON.parse(fs.readFileSync('state.json', 'UTF-8'));
 
-	var twitter = new Twitter.RestClient(
-		twitterconfig.consumer_key,
-		twitterconfig.consumer_secret,
-		state.access_token,
-		state.access_token_secret
-	);
-
-	twitter.statusesUpdate({
-		status: tweet_text
-	}, function (err, data) {
-		if (err) {
-			console.error(err);
-
-			state.last_error = err.toString();
-			state.last_error_time = Date().toString();
-
-			state.last_update = Date().toString();
-
-			fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
-
-			process.exit(1);
-
-		} else {
-			console.log(data);
-
-			// save state
-			state.last_fontsize = biggest_fontsize;
-			state.last_text = biggest_text;
-
-			state.last_tweet = tweet_text;
-			state.last_tweet_time = Date().toString();
-
-			state.last_update = Date().toString();
-
-			fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
-
-			process.exit(0);
-
-		}
+	var twitter = new twitterAPI({
+		consumerKey: twitterconfig.consumer_key,
+		consumerSecret: twitterconfig.consumer_secret,
+		callback: 'http://127.0.0.1:3000/callback'
 	});
+
+	twitter.statuses(
+		"update",
+		{
+			status: tweet_text
+		},
+		state.access_token,
+		state.access_token_secret,
+		function(error, data, response) {
+			if (error) {
+				console.error(err);
+
+				state.last_error = err.toString();
+				state.last_error_time = Date().toString();
+
+				state.last_update = Date().toString();
+
+				fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
+
+				process.exit(1);
+
+			} else {
+				console.log(data);
+
+				// save state
+				state.last_fontsize = biggest_fontsize;
+				state.last_text = biggest_text;
+
+				state.last_tweet = tweet_text;
+				state.last_tweet_time = Date().toString();
+
+				state.last_update = Date().toString();
+
+				fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
+
+				process.exit(0);
+
+			}
+		}
+	);
 
 } else {
 

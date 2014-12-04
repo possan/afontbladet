@@ -19,7 +19,7 @@ page.open('http://www.aftonbladet.se', function() {
 			});
 			jQuery('*:contains("")').each(function(i,e) {
 				var el = jQuery(e);
-				var t = el[0].textContent.replace(/[\n\t\r]+/g, ' ').trim();
+				var t = el[0].textContent.replace(/[\n\t\r ]+/g, ' ').trim();
 				if (el.children().length == 0) {
 					if (t != '') {
 						l.push({

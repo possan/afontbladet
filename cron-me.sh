@@ -12,8 +12,9 @@ rm -f text.json
 # did we fail? then exit
 if [ -e "text.json" ]; then
 	# back up ripped data for archiving.
-	mkdir -p history
-	BN=history/text-`date +"%Y%m%d-%H%M"`.json
+	BP=history/`date +"%Y%m%d/"`
+	mkdir -p $BP
+	BN=$BP/`date +"%H%M"`.json
 	cp text.json $BN
 	gzip -9 $BN
 

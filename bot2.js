@@ -16,7 +16,7 @@ var tweet_text = '';
 for(var i=0; i<checkmarks.length && tweet_text == ''; i++) {
 	if (state.last_checkmarks.indexOf(checkmarks[i]) == -1) {
 		// new checklist
-		tweet_text = 'Ny kryssmarkering: ' + checkmarks[i];
+		tweet_text = '✓ ' + checkmarks[i];
 		state.last_checkmarks.push(checkmarks[i]);
 	}
 }

@@ -45,7 +45,13 @@ page.open('http://www.aftonbladet.se', function() {
 			});
 
 			// find checkmarks
-			// $('* > .abSymbBo').each(function(i, e) { console.log('Check', e.nextSibling.nodeValue ); });
+			jQuery('* > .abSymbBo').each(function(i, e) {
+				var t = e.nextSibling.nodeValue.trim();
+				// console.log('Check', e.nextSibling.nodeValue );
+				if (t != '') {
+					c.push(t);
+				}
+			});
 
 			l.sort(function(a,b) { return b.size - a.size; });
 			console.log(l);

@@ -23,7 +23,17 @@ if [ -e "text.json" ]; then
 	if [ $? -ne 0 ]; then
 	    echo "bot failed"
 
-		echo "Subject: Afontbladet rip failure" > mail.txt
+		echo "Subject: Afontbladet bot failure" > mail.txt
+		echo "" >> mail.txt
+		cat state.json >>mail.txt
+		cat mail.txt | sendmail possan+afontbladet@possan.se
+	fi
+
+	/usr/bin/node bot2.js >> /tmp/afontbladet.log
+	if [ $? -ne 0 ]; then
+	    echo "bot2 failed"
+
+		echo "Subject: Afontbladet bot2 failure" > mail.txt
 		echo "" >> mail.txt
 		cat state.json >>mail.txt
 		cat mail.txt | sendmail possan+afontbladet@possan.se

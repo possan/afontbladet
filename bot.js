@@ -3,7 +3,6 @@ var fs = require('fs');
 // load text info
 var data = JSON.parse(fs.readFileSync('text.json', 'UTF-8'));
 var headlines = data.headlines;
-var checkmarks = data.checks;
 
 // calc distribution and peak
 var biggest_fontsize = headlines[0].size || 0;
@@ -47,7 +46,7 @@ if (tweet_text != '') {
 
 	var twitterconfig = JSON.parse(fs.readFileSync('twitterconfig.json', 'UTF-8'));
 	var twitterAPI = require('node-twitter-api');
-	var state = JSON.parse(fs.readFileSync('state.json', 'UTF-8'));
+	// var state = JSON.parse(fs.readFileSync('state.json', 'UTF-8'));
 
 	var twitter = new twitterAPI({
 		consumerKey: twitterconfig.consumer_key,
@@ -68,7 +67,6 @@ if (tweet_text != '') {
 
 				state.last_error = err.toString();
 				state.last_error_time = Date().toString();
-
 				state.last_update = Date().toString();
 
 				fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
@@ -82,7 +80,7 @@ if (tweet_text != '') {
 				state.last_fontsize = biggest_fontsize;
 				state.last_text = biggest_text;
 
-				state.last_error = ''; 
+				state.last_error = '';
 
 				state.last_tweet = tweet_text;
 				state.last_tweet_time = Date().toString();
@@ -102,7 +100,6 @@ if (tweet_text != '') {
 	state.last_update = Date().toString();
 
 	fs.writeFileSync('state.json', JSON.stringify(state, null, 2), 'UTF-8');
-
 
 	process.exit(0);
 

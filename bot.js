@@ -2,15 +2,17 @@ var fs = require('fs');
 
 // load text info
 var data = JSON.parse(fs.readFileSync('text.json', 'UTF-8'));
+var headlines = data.headlines;
+var checkmarks = data.checks;
 
 // calc distribution and peak
-var biggest_fontsize = data[0].size || 0;
-var biggest_text = data[0].text || '';
+var biggest_fontsize = headlines[0].size || 0;
+var biggest_text = headlines[0].text || '';
 console.log('biggest_fontsize', biggest_fontsize);
 console.log('biggest_text', 'biggest_text');
 
 var histogram = {};
-data.forEach(function(d) {
+headlines.forEach(function(d) {
 	if (typeof(histogram[d.size]) == 'undefined')
 		histogram[d.size] = 0;
 	histogram[d.size] ++;
